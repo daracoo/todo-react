@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { TodosContext } from "../store/todos-context";
 import classes from './NewTodo.module.css'
 
-const NewTodo: React.FC<{onAddToDo: (text: string) => void }> = (props) => {
+const NewTodo: React.FC = () => {
+    const todosCtx = useContext(TodosContext)
 
     const todoTextInputRef = useRef<HTMLInputElement>(null);
 
@@ -14,7 +16,7 @@ const NewTodo: React.FC<{onAddToDo: (text: string) => void }> = (props) => {
             return;
         }
 
-        props.onAddToDo(enteredText);
+        todosCtx.addTodo(enteredText);
     }
 
     return <form onSubmit={submitHandler} className={classes.form}>
